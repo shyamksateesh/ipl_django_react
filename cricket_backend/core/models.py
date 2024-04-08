@@ -24,3 +24,33 @@ class Match(models.Model):
     
     class Meta:
         db_table = 'matches'  # Specify the database table name
+
+class Deliveries(models.Model):
+    delivery_id = models.AutoField(primary_key=True)
+    match_id = models.IntegerField(default=0)
+    inning = models.IntegerField(default=0)
+    batting_team = models.CharField(max_length=255, default="null")
+    bowling_team = models.CharField(max_length=255, default="null")
+    over = models.IntegerField(default=0)
+    ball = models.IntegerField(default=0)
+    batsman = models.CharField(max_length=255, default="null")
+    non_striker = models.CharField(max_length=255, default="null")
+    bowler = models.CharField(max_length=255, default="null")
+    is_super_over = models.IntegerField(default=0)
+    wide_runs = models.IntegerField(default=0)
+    bye_runs = models.IntegerField(default=0)
+    legbye_runs = models.IntegerField(default=0)
+    noball_runs = models.IntegerField(default=0)
+    penalty_runs = models.IntegerField(default=0)
+    batsman_runs = models.IntegerField(default=0)
+    extra_runs = models.IntegerField(default=0)
+    total_runs = models.IntegerField(default=0)
+    player_dismissed = models.CharField(max_length=255, default="null")
+    dismissal_kind = models.CharField(max_length=255, default="null")
+    fielder = models.CharField(max_length=255, default="null")
+
+    def __str__(self):
+        return f"Delivery {self.delivery_id}"
+    
+    class Meta:
+        db_table = 'deliveries'  # Specify the database table name

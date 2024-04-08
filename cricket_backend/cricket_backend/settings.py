@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'cricket_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ipl-data',
+        'NAME': 'ipl',
         'USER': 'postgres',
         'PASSWORD': 'password',
         'HOST': 'localhost',

@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
-import MatchList from './components/MatchList';
+import TopBowlers from './components/TopBowlers'; // Import TopBowlers component
+import MatchStatsGraph from './components/MatchStatsGraph';
+import StackedBarChart from './components/StackedBarChart';
 
 function App() {
   return (
     <div className="App">
-      <MatchList />
+      <TopBowlers /> {/* Use TopBowlers component here */}
+      <MatchStatsGraph />
+      <StackedBarChart />
     </div>
   );
 }

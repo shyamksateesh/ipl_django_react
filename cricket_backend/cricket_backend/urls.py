@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin # type: ignore
 from django.urls import path  # type: ignore # Import path instead of url
-from core.views import MatchView
+from core.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('matches/', MatchView.as_view(), name='match-list'),
+    path('match-stats/', MatchStatsView.as_view(), name='match-stats'),
+    path('match-wins/', MatchWinView.as_view(), name='match-wins'),
+    path('bowler-stats/', TopBowlersView.as_view(), name='bowler-stats'),
 ]
