@@ -24,4 +24,5 @@ urlpatterns = [
     path('match-wins/', MatchWinView.as_view(), name='match-wins'),
     path('bowler-stats/', TopBowlersView.as_view(), name='bowler-stats'),
     path('match-win-lose/', WinLoseView.as_view(), name='match-win-lose'),
+    path('net-runs/', NetRunsView.as_view(), name='net-runs'),
 ]

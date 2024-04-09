@@ -143,4 +143,35 @@ class WinLoseView(APIView):
         teams_data_list = [{'team': team, 'matches_played': data['matches_played'], 'matches_won': data['matches_won']} for team, data in teams_data.items()]
         
         return Response(teams_data_list)
-    
+
+class NetRunsView(APIView):
+    def get(self, request):
+        year = request.query_params.get('year', None)
+        if year is None:
+            return Response({'error': 'Year parameter is required'}, status=400)
+        
+        # Get all match IDs for the specified year
+        match_ids = Match.objects.filter(date__year=year).values_list('id', flat=True)
+
+        # Calculate net runs conceded for each team
+        net_runs_conceded = {}
+        for match_id in match_ids:
+            # Get deliveries for the current match
+            match_deliveries = Deliveries.objects.filter(match_id=match_id)
+            for delivery in match_deliveries:
+                batting_team = delivery.batting_team
+                bowling_team = delivery.bowling_team
+                total_runs = delivery.total_runs
+                
+                # Update net runs conceded for the batting team
+                if batting_team:
+                    net_runs_conceded[batting_team] = net_runs_conceded.get(batting_team, 0) + total_runs
+                
+                # Update net runs conceded for the bowling team
+                if bowling_team:
+                    net_runs_conceded[bowling_team] = net_runs_conceded.get(bowling_team, 0) - total_runs
+        
+        # Convert net runs conceded data to the desired format
+        net_runs_conceded_list = [{'team': team, 'net_runs_conceded': runs_conceded} for team, runs_conceded in net_runs_conceded.items()]
+        
+        return Response(net_runs_conceded_list)

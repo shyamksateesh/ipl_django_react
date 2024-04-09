@@ -50,7 +50,7 @@ const MatchWinLose = () => {
     };
 
     return (
-        <div style={{ background: '#333', color: 'white', minHeight: '100vh', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ background: '#222', color: 'white', minHeight: '100vh', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h2 style={{ textAlign: 'center' }}>Number of Matches Won by Each Team Over the Years</h2>
             <label htmlFor="yearSelect" style={{ marginBottom: '10px' }}>Select Year:</label>
             <select id="yearSelect" value={selectedYear} onChange={handleYearChange} style={{ marginBottom: '20px' }}>

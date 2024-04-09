@@ -74,7 +74,7 @@ const MatchStatsGraph = () => {
     };
 
     return (
-        <div style={{ background: '#333', color: 'white', width: '100vw', height: '100vh', padding: '20px' }}>
+        <div style={{ background: '#222', color: 'white', width: '100vw', height: '100vh', padding: '20px' }}>
             <h2 style={{ textAlign: 'center' }}>Total Matches Played Per Year</h2>
             <div style={{ height: '80%', width: '80%', margin: 'auto' }}>
                 {renderChart()}

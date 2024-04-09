@@ -94,7 +94,7 @@ const StackedBarChart = () => {
     };
 
     return (
-        <div style={{ background: '#333', color: 'white', padding: '20px' }}>
+        <div style={{ background: '#222', color: 'white', padding: '20px' }}>
             <h2 style={{ textAlign: 'center' }}>Number of Matches Won by Each Team Over the Years</h2>
             {renderChart()}
         </div>
