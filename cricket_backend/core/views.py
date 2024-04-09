@@ -106,3 +106,41 @@ class TopBowlersView(APIView):
         
         return Response(top_bowlers_response)
 
+class WinLoseView(APIView):
+    def get(self, request):
+        # year = 2017 
+        year = request.query_params.get('year', None)
+        if year is None:
+            return Response({'error': 'Year parameter is required'}, status=400)
+        # Calculate the total number of matches played by each team in the specified year
+        matches_played_by_team = Match.objects.filter(date__year=year).values('team1', 'team2').annotate(num_matches=Count('id'))
+        
+        # Calculate the total number of matches won by each team in the specified year
+        matches_won_by_team = Match.objects.filter(date__year=year, winner__isnull=False).values('winner').annotate(num_wins=Count('id'))
+        
+        # Organize data for each team
+        teams_data = {}
+        for match in matches_played_by_team:
+            team1 = match['team1']
+            team2 = match['team2']
+            num_matches = match['num_matches']
+            
+            if team1:
+                teams_data.setdefault(team1, {'matches_played': 0, 'matches_won': 0})
+                teams_data[team1]['matches_played'] += num_matches
+            if team2:
+                teams_data.setdefault(team2, {'matches_played': 0, 'matches_won': 0})
+                teams_data[team2]['matches_played'] += num_matches
+        
+        for match in matches_won_by_team:
+            team = match['winner']
+            num_wins = match['num_wins']
+            if team:
+                teams_data.setdefault(team, {'matches_played': 0, 'matches_won': 0})
+                teams_data[team]['matches_won'] += num_wins
+        
+        # Convert data to the format expected by the frontend
+        teams_data_list = [{'team': team, 'matches_played': data['matches_played'], 'matches_won': data['matches_won']} for team, data in teams_data.items()]
+        
+        return Response(teams_data_list)
+    

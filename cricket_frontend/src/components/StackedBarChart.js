@@ -73,10 +73,12 @@ const StackedBarChart = () => {
                 options={{
                     scales: {
                         x: {
-                            stacked: true
+                            stacked: true,
+                            ticks: { color: 'white' } // Set color of x-axis labels to white
                         },
                         y: {
-                            stacked: true
+                            stacked: true,
+                            ticks: { color: 'white' } // Set color of y-axis labels to white
                         }
                     },
                     plugins: {

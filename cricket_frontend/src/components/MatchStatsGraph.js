@@ -47,13 +47,16 @@ const MatchStatsGraph = () => {
                     maintainAspectRatio: false,
                     scales: {
                         x: {
-                            stacked: true
+                            stacked: true,
+                            ticks: {
+                                color: 'white'
+                            }
                         },
                         y: {
                             beginAtZero: true,
                             stacked: true,
                             ticks: {
-                                color: 'white'
+                                color: 'white' 
                             }
                         }
                     },
