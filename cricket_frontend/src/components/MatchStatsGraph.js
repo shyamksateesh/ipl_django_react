@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 const MatchStatsGraph = () => {
     const [matchStats, setMatchStats] = useState([]);
-    const [chartHeight, setChartHeight] = useState(400);
+    const chartContainerRef = useRef(null);
 
     useEffect(() => {
         fetchMatchStats();
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        handleResize(); 
+    }, [matchStats]);
 
     const fetchMatchStats = async () => {
         try {
@@ -23,8 +27,14 @@ const MatchStatsGraph = () => {
     };
 
     const handleResize = () => {
-        setChartHeight(window.innerHeight * 0.6); // Adjust the height based on window size
+        if (chartContainerRef.current) {
+            const { clientWidth } = chartContainerRef.current;
+            const newHeight = Math.min(clientWidth * 0.6, 400); 
+            setChartHeight(newHeight);
+        }
     };
+
+    const [chartHeight, setChartHeight] = useState(400);
 
     const renderChart = () => {
         if (!matchStats) return null;
@@ -44,7 +54,7 @@ const MatchStatsGraph = () => {
                     }]
                 }}
                 options={{
-                    maintainAspectRatio: false,
+                    aspectRatio: false, 
                     scales: {
                         x: {
                             stacked: true,
@@ -68,7 +78,7 @@ const MatchStatsGraph = () => {
                         }
                     }
                 }}
-                height={chartHeight} // Pass the dynamic height to the chart
+                height={chartHeight} 
             />
         );
     };
@@ -76,7 +86,7 @@ const MatchStatsGraph = () => {
     return (
         <div style={{ background: '#222', color: 'white', width: '100vw', height: '100vh', padding: '20px' }}>
             <h2 style={{ textAlign: 'center' }}>Total Matches Played Per Year</h2>
-            <div style={{ height: '80%', width: '80%', margin: 'auto' }}>
+            <div ref={chartContainerRef} style={{ height: '80%', width: '80%', margin: 'auto' }}>
                 {renderChart()}
             </div>
         </div>

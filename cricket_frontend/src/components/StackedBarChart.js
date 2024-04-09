@@ -32,12 +32,10 @@ const StackedBarChart = () => {
     const renderChart = () => {
         if (!data) return null;
 
-        // Collect all years
         const allYears = Array.from(
             new Set(data.flatMap(teamData => teamData.years.map(yearData => yearData.year)))
         );
 
-        // Define brighter colors
         const brighterColors = [
             'rgba(255, 99, 132, 0.6)',
             'rgba(54, 162, 235, 0.6)',
@@ -45,13 +43,12 @@ const StackedBarChart = () => {
             'rgba(75, 192, 192, 0.6)',
             'rgba(153, 102, 255, 0.6)',
             'rgba(255, 159, 64, 0.6)',
-            'rgba(220, 20, 60, 0.6)', // Crimson
-            'rgba(0, 191, 255, 0.6)', // Deep Sky Blue
-            'rgba(46, 139, 87, 0.6)', // Sea Green
-            'rgba(255, 182, 193, 0.6)', // Light Pink
+            'rgba(220, 20, 60, 0.6)', 
+            'rgba(0, 191, 255, 0.6)',
+            'rgba(46, 139, 87, 0.6)', 
+            'rgba(255, 182, 193, 0.6)', 
         ];
 
-        // Prepare data for Chart.js
         const labels = data.map(teamData => teamData.team);
         const datasets = allYears.map((year, index) => ({
             label: year.toString(),
@@ -59,7 +56,7 @@ const StackedBarChart = () => {
                 const teamYearData = teamData.years.find(data => data.year === year);
                 return teamYearData ? teamYearData.num_wins : 0;
             }),
-            backgroundColor: brighterColors[index % brighterColors.length], // Use brighter colors
+            backgroundColor: brighterColors[index % brighterColors.length], 
             borderColor: '#000',
             borderWidth: 1
         }));
@@ -74,11 +71,11 @@ const StackedBarChart = () => {
                     scales: {
                         x: {
                             stacked: true,
-                            ticks: { color: 'white' } // Set color of x-axis labels to white
+                            ticks: { color: 'white' } 
                         },
                         y: {
                             stacked: true,
-                            ticks: { color: 'white' } // Set color of y-axis labels to white
+                            ticks: { color: 'white' } 
                         }
                     },
                     plugins: {
@@ -89,6 +86,7 @@ const StackedBarChart = () => {
                         }
                     }
                 }}
+                height={140}
             />
         );
     };

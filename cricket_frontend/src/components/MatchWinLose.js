@@ -35,11 +35,11 @@ const MatchWinLose = () => {
         const datasets = [{
             label: 'Matches Won',
             data: data.map(item => item.matches_won),
-            backgroundColor: 'rgba(54, 162, 235, 0.6)', // Blue color
+            backgroundColor: 'rgba(54, 162, 235, 0.6)', 
         }, {
             label: 'Matches Lost',
             data: data.map(item => item.matches_played - item.matches_won),
-            backgroundColor: 'rgba(255, 99, 132, 0.6)', // Red color
+            backgroundColor: 'rgba(255, 99, 132, 0.6)', 
         }];
         return { labels, datasets };
     };

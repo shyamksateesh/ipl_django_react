@@ -1,15 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 const NetRunsBarChart = () => {
     const [year, setYear] = useState(null);
     const [netRunsData, setNetRunsData] = useState(null);
+    const chartContainerRef = useRef(null);
 
     useEffect(() => {
         if (year) {
             fetchNetRunsData();
         }
     }, [year]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (chartContainerRef.current) {
+                fetchNetRunsData();
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const fetchNetRunsData = async () => {
         try {
@@ -39,37 +53,40 @@ const NetRunsBarChart = () => {
         const backgroundColors = data.map(value => value >= 0 ? 'rgba(75, 192, 192, 0.6)' : 'rgba(255, 99, 132, 0.6)');
 
         return (
-            <Bar
-                data={{
-                    labels: labels,
-                    datasets: [{
-                        label: 'Net Runs Conceded',
-                        data: data,
-                        backgroundColor: backgroundColors,
-                        borderColor: '#000',
-                        borderWidth: 1
-                    }]
-                }}
-                options={{
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { color: 'white' }
+            <div ref={chartContainerRef} style={{ width: '100%', height: 'calc(100% - 40px)', paddingBottom: '20px' }}>
+                <Bar
+                    data={{
+                        labels: labels,
+                        datasets: [{
+                            label: 'Net Runs Conceded',
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderColor: '#000',
+                            borderWidth: 1
+                        }]
+                    }}
+                    options={{
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { color: 'white' }
+                            },
+                            x: {
+                                ticks: { color: 'white' }
+                            }
                         },
-                        x: {
-                            ticks: { color: 'white' }
+                        plugins: {
+                            legend: { display: false }
                         }
-                    },
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }}
-            />
+                    }}
+                />
+            </div>
         );
     };
 
     return (
-        <div style={{ background: '#222', color: 'white', minHeight: '100vh', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ background: '#222', color: 'white', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', height: 'calc(100vh - 40px)' }}>
             <h2 style={{ textAlign: 'center' }}>Net Runs Conceded by Each Team</h2>
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
                 <label htmlFor="year" style={{ marginRight: '10px' }}>Select Year:</label>

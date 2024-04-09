@@ -5,14 +5,14 @@ import MatchWinLose from './components/MatchWinLose';
 import TopBowlers from './components/TopBowlers'; 
 import MatchStatsGraph from './components/MatchStatsGraph';
 import StackedBarChart from './components/StackedBarChart';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import NetRunsBarChart from './components/NetRunsBarChart';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
     <Router>
       <NavBar />
-      <div style={{ paddingTop: '56px' }}> {/* Adjust the padding-top value according to your navbar's height */}
+      <div style={{ paddingTop: '56px' }}> 
         <Routes>
           <Route path="/" element={<div>
             <StackedBarChart />
