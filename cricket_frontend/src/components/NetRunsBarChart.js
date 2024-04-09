@@ -69,17 +69,17 @@ const NetRunsBarChart = () => {
     };
 
     return (
-        <div style={{ background: '#222', color: 'white', minHeight: '100vh', padding: '20px' }}>
+        <div style={{ background: '#222', color: 'white', minHeight: '100vh', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h2 style={{ textAlign: 'center' }}>Net Runs Conceded by Each Team</h2>
-            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-                <label htmlFor="year">Select Year:</label>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                <label htmlFor="year" style={{ marginRight: '10px' }}>Select Year:</label>
                 <select id="year" onChange={handleYearChange} value={year}>
                     <option value="">Select</option>
                     {Array.from({ length: 10 }, (_, index) => (
                         <option key={2008 + index} value={2008 + index}>{2008 + index}</option>
                     ))}
                 </select>
-                <button onClick={handleSubmit} style={{ marginLeft: '10px' }}>Submit</button>
+                <button onClick={handleSubmit} style={{ marginLeft: '10px', backgroundColor: '#cb9d06', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px' }}>Submit</button>
             </div>
             {renderChart()}
         </div>

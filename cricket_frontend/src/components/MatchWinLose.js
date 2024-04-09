@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
-import 'chart.js/auto';
 
 const MatchWinLose = () => {
     const [chartData, setChartData] = useState(null);
@@ -51,15 +50,17 @@ const MatchWinLose = () => {
 
     return (
         <div style={{ background: '#222', color: 'white', minHeight: '100vh', padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h2 style={{ textAlign: 'center' }}>Number of Matches Won by Each Team Over the Years</h2>
-            <label htmlFor="yearSelect" style={{ marginBottom: '10px' }}>Select Year:</label>
-            <select id="yearSelect" value={selectedYear} onChange={handleYearChange} style={{ marginBottom: '20px' }}>
-                <option value="">--Select Year--</option>
-                {years && years.map(year => (
-                    <option key={year} value={year}>{year}</option>
-                ))}
-            </select>
-            <button onClick={fetchDataForYear} style={{ marginBottom: '20px' }}>Get Results</button>
+            <h2 style={{ textAlign: 'center' }}>Matches Played vs Matches Won for Each Team</h2>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                <label htmlFor="yearSelect" style={{ marginRight: '10px' }}>Select Year:</label>
+                <select id="yearSelect" value={selectedYear} onChange={handleYearChange} style={{ marginRight: '10px' }}>
+                    <option value="">--Select Year--</option>
+                    {years.map(year => (
+                        <option key={year} value={year}>{year}</option>
+                    ))}
+                </select>
+                <button onClick={fetchDataForYear} style={{ backgroundColor: '#cb9d06', color: 'white', border: 'none', padding: '8px 16px', borderRadius: '4px' }}>Submit</button>
+            </div>
             {chartData && <Bar
                 data={chartData}
                 options={{
@@ -79,7 +80,7 @@ const MatchWinLose = () => {
                         } 
                     } 
                 }} 
-                height={100}
+                height={125}
             />}
         </div>
     );
