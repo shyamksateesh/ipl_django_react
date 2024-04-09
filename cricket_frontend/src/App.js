@@ -5,6 +5,7 @@ import MatchWinLose from './components/MatchWinLose';
 import TopBowlers from './components/TopBowlers'; 
 import MatchStatsGraph from './components/MatchStatsGraph';
 import StackedBarChart from './components/StackedBarChart';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
