@@ -1,4 +1,3 @@
-# views.py
 from django.db.models import Count # type: ignore
 from django.shortcuts import render # type: ignore
 from rest_framework.views import APIView # type: ignore

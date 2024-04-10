@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const NavBar = () => {
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{ backgroundColor: '#cb9d06' }}> 
       <div className="container"> 
-        <a className="navbar-brand">IPL Stats</a>
+        <Link className="navbar-brand" style={{ fontWeight: 'bold' }}>IPL Stats</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -25,17 +35,21 @@ const NavBar = () => {
             </li>
           </ul>
           <span className="navbar-text" style={{ marginLeft: 'auto' }}> 
-            April 2024
+            {currentTime.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZone: 'Asia/Kolkata' })}
           </span>
         </div>
       </div>
       <style>
         {`
-          .nav-link {
+          .nav-link, .navbar-text {
             transition: font-weight 0.3s ease;
           }
 
-          .nav-item:hover .nav-link {
+          .nav-item:hover .nav-link, .navbar-text:hover {
+            font-weight: bold;
+          }
+
+          .navbar-brand:hover {
             font-weight: bold;
           }
         `}
